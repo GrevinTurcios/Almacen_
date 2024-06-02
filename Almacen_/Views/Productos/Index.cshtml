@@ -2,6 +2,8 @@
 
 <h1>Productos</h1>
 
+<p><a asp-action="Create">Crear Nuevo Producto</a></p>
+
 <table class="table">
     <thead>
         <tr>
@@ -9,6 +11,7 @@
             <th>Nombre de Producto</th>
             <th>Descripcion de Producto</th>
             <th>Precio de Producto</th>
+            <th>Categoria del Producto</th>
 
         </tr>
     </thead>
@@ -17,12 +20,10 @@
         {
             <tr>
                 <td>@Html.DisplayFor(m => Productos.ProductoId)</td>
-                <br />
-                <td>@Html.DisplayFor(m=>Productos.ProductoNombre)</td>
-                <br />
+                <td>@Html.DisplayFor(m => Productos.ProductoNombre)</td>
                 <td>@Html.DisplayFor(m => Productos.ProductoDescripcion)</td>
-                <br />
                 <td>@Html.DisplayFor(m => Productos.ProductoPrecio)</td>
+                <td>@Html.DisplayFor(m => Productos.Categoria.CategoriaNombre)</td>
             </tr>
         }
     </tbody>

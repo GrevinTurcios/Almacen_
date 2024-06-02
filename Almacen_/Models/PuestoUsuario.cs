@@ -10,4 +10,6 @@ public partial class PuestoUsuario
     public string PuestoNombre { get; set; } = null!;
 
     public string PuestoDescripcion { get; set; } = null!;
+
+    public virtual ICollection<Usuario> Usuarios { get; set; } = new List<Usuario>();
 }

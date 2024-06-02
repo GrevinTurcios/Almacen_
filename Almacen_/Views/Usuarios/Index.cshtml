@@ -1,0 +1,31 @@
+﻿@model List<Usuario>
+
+    <h1>Usuarios</h1>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Nombre</th>
+            <th>Apellido</th>
+            <th>Correo</th>
+            <th>Telefono</th>
+            <th>Password</th>
+            <th>Puesto Del Usuarios</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach ( var Usuarios in Model)
+        {
+            <tr>
+                <td>@Html.DisplayFor(U => Usuarios.UsuarioId)</td>
+                <td>@Html.DisplayFor(U => Usuarios.UsuarioNombre)</td>
+                <td>@Html.DisplayFor(U => Usuarios.UsuarioApellido)</td>
+                <td>@Html.DisplayFor(U => Usuarios.UsuarioCorreo)</td>
+                <td>@Html.DisplayFor(U => Usuarios.UsuarioTelefono)</td>
+                <td>@Html.DisplayFor(U => Usuarios.UsuarioPassword)</td>
+                <td>@Html.DisplayFor(U =>Usuarios.Puesto.PuestoNombre)</td>
+            </tr>
+        }
+    </tbody>
+</table>

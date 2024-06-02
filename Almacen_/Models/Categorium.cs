@@ -10,4 +10,6 @@ public partial class Categorium
     public string CategoriaNombre { get; set; } = null!;
 
     public string CategoriaDescripcion { get; set; } = null!;
+
+    public virtual ICollection<Producto> Productos { get; set; } = new List<Producto>();
 }

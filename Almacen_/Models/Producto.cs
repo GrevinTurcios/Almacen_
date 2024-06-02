@@ -1,4 +1,4 @@
-﻿    using System;
+﻿using System;
 using System.Collections.Generic;
 
 namespace Almacen_.Models;
@@ -14,4 +14,8 @@ public partial class Producto
     public int ProductoPrecio { get; set; }
 
     public byte[]? ProductoImagen { get; set; }
+
+    public int CategoriaId { get; set; }
+
+    public virtual Categorium Categoria { get; set; } = null!;
 }

@@ -16,4 +16,8 @@ public partial class Usuario
     public int UsuarioTelefono { get; set; }
 
     public string UsuarioPassword { get; set; } = null!;
+
+    public int PuestoId { get; set; }
+
+    public virtual PuestoUsuario Puesto { get; set; } = null!;
 }

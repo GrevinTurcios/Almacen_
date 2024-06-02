@@ -39,7 +39,7 @@ public partial class AlmacenContext : DbContext
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see https://go.microsoft.com/fwlink/?LinkId=723263.
-        => optionsBuilder.UseSqlServer("Server=Localhost; Database=Almacen; Trusted_Connection=True; TrustServerCertificate=True");
+        => optionsBuilder.UseSqlServer("Server=Localhost; Database=Almacen; Trusted_Connection=True; TrustServerCertificate=True ");
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -51,7 +51,7 @@ public partial class AlmacenContext : DbContext
                 .ValueGeneratedNever()
                 .HasColumnName("Categoria_ID");
             entity.Property(e => e.CategoriaDescripcion)
-                .HasMaxLength(50)
+                .HasMaxLength(200)
                 .IsUnicode(false)
                 .HasColumnName("Categoria_Descripcion");
             entity.Property(e => e.CategoriaNombre)
@@ -123,6 +123,7 @@ public partial class AlmacenContext : DbContext
         modelBuilder.Entity<Producto>(entity =>
         {
             entity.Property(e => e.ProductoId).HasColumnName("Producto_ID");
+            entity.Property(e => e.CategoriaId).HasColumnName("Categoria_ID");
             entity.Property(e => e.ProductoDescripcion)
                 .HasMaxLength(50)
                 .IsUnicode(false)
@@ -135,6 +136,11 @@ public partial class AlmacenContext : DbContext
                 .IsUnicode(false)
                 .HasColumnName("Producto_Nombre");
             entity.Property(e => e.ProductoPrecio).HasColumnName("Producto_Precio");
+
+            entity.HasOne(d => d.Categoria).WithMany(p => p.Productos)
+                .HasForeignKey(d => d.CategoriaId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK_Productos_Categoria");
         });
 
         modelBuilder.Entity<PuestoUsuario>(entity =>
@@ -147,7 +153,7 @@ public partial class AlmacenContext : DbContext
                 .ValueGeneratedNever()
                 .HasColumnName("Puesto_ID");
             entity.Property(e => e.PuestoDescripcion)
-                .HasMaxLength(50)
+                .HasMaxLength(200)
                 .IsUnicode(false)
                 .HasColumnName("Puesto_Descripcion");
             entity.Property(e => e.PuestoNombre)
@@ -178,9 +184,8 @@ public partial class AlmacenContext : DbContext
 
         modelBuilder.Entity<Usuario>(entity =>
         {
-            entity.Property(e => e.UsuarioId)
-                .ValueGeneratedNever()
-                .HasColumnName("Usuario_ID");
+            entity.Property(e => e.UsuarioId).HasColumnName("Usuario_ID");
+            entity.Property(e => e.PuestoId).HasColumnName("Puesto_ID");
             entity.Property(e => e.UsuarioApellido)
                 .HasMaxLength(50)
                 .IsUnicode(false)
@@ -198,6 +203,11 @@ public partial class AlmacenContext : DbContext
                 .IsUnicode(false)
                 .HasColumnName("Usuario_Password");
             entity.Property(e => e.UsuarioTelefono).HasColumnName("Usuario_Telefono");
+
+            entity.HasOne(d => d.Puesto).WithMany(p => p.Usuarios)
+                .HasForeignKey(d => d.PuestoId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK_Usuarios_Puesto_Usuario");
         });
 
         modelBuilder.Entity<Venta>(entity =>
